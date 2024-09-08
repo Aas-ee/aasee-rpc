@@ -1,9 +1,16 @@
 package com.aasee.aaseerpc;
 
+import cn.hutool.core.io.resource.Resource;
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.io.watch.SimpleWatcher;
+import cn.hutool.core.io.watch.WatchUtil;
 import com.aasee.aaseerpc.config.RpcConfig;
 import com.aasee.aaseerpc.constant.RpcConstant;
 import com.aasee.aaseerpc.utils.ConfigUtils;
 import lombok.extern.slf4j.Slf4j;
+
+import java.nio.file.Path;
+import java.nio.file.WatchEvent;
 
 /**
  * RPC 框架应用
@@ -22,6 +29,19 @@ public class RpcApplication {
     public static void init(RpcConfig newRpcConfig) {
         rpcConfig = newRpcConfig;
         log.info("rpc init, config = {}", newRpcConfig.toString());
+    }
+
+    /**
+     * 初始化
+     */
+    public static void autoLoad(String path) {
+        Resource resourceObj = ResourceUtil.getResourceObj(path);
+        WatchUtil.createModify(resourceObj.getUrl(), new SimpleWatcher() {
+            @Override
+            public void onModify(WatchEvent<?> event, Path currentPath) {
+                init();
+            }
+        });
     }
 
     /**
