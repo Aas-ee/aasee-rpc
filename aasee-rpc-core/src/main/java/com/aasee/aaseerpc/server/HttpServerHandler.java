@@ -1,10 +1,12 @@
 package com.aasee.aaseerpc.server;
 
+import com.aasee.aaseerpc.RpcApplication;
 import com.aasee.aaseerpc.model.RpcRequest;
 import com.aasee.aaseerpc.model.RpcResponse;
 import com.aasee.aaseerpc.registry.LocalRegistry;
 import com.aasee.aaseerpc.serializer.JdkSerializer;
 import com.aasee.aaseerpc.serializer.Serializer;
+import com.aasee.aaseerpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
@@ -21,7 +23,8 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest request) {
         // 指定序列化器
-        final Serializer serializer = new JdkSerializer();
+        final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
+
 
         // 记录日志
         System.out.println("Received request: " + request.method() + " " + request.uri());

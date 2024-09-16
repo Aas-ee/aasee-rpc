@@ -2,10 +2,12 @@ package com.aasee.example.consumer;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import com.aasee.aaseerpc.RpcApplication;
 import com.aasee.aaseerpc.model.RpcRequest;
 import com.aasee.aaseerpc.model.RpcResponse;
 import com.aasee.aaseerpc.serializer.JdkSerializer;
 import com.aasee.aaseerpc.serializer.Serializer;
+import com.aasee.aaseerpc.serializer.SerializerFactory;
 import com.aasee.example.common.model.User;
 import com.aasee.example.common.service.UserService;
 
@@ -18,7 +20,8 @@ public class UserServiceProxy implements UserService {
 
     public User getUser(User user) {
         // 指定序列化器
-        Serializer serializer = new JdkSerializer();
+        final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
+
 
         // 发请求
         RpcRequest rpcRequest = RpcRequest.builder()

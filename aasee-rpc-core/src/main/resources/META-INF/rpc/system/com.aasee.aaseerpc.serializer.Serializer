@@ -1,0 +1,2 @@
+jdk=com.aasee.aaseerpc.serializer.JdkSerializer
+hessian=com.aasee.aaseerpc.serializer.HessianSerializer

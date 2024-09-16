@@ -1,5 +1,6 @@
 package com.aasee.aaseerpc.config;
 
+import com.aasee.aaseerpc.serializer.SerializerKeys;
 import lombok.Data;
 
 /**
@@ -32,5 +33,10 @@ public class RpcConfig {
      * 模拟调用
      */
     private boolean mock = false;
+
+    /**
+     * 模拟调用
+     */
+    private String serializer = SerializerKeys.JDK;
 
 }

@@ -1,0 +1,2 @@
+json=com.aasee.example.common.serializer.JsonSerializer
+kryo=com.aasee.example.common.serializer.KryoSerializer
